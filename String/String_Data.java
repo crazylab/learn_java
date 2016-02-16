@@ -5,11 +5,11 @@ public class String_Data{
         this.data = data;
     }
 
-    private void print(String message){
-        System.out.println(message);
+    public void print(String message){
+        System.out.println(this.data + message);
     }
 
-    public void countVowels(){
+    public int countVowels(){
         int count = 0;
         String capital_case = this.data.toUpperCase();
         for(int index=0; index < capital_case.length(); index++){
@@ -21,6 +21,11 @@ public class String_Data{
                 case 'U': count++;
             }
         }
-        print(this.data+" has "+count+" Vowels");
+        return count;
+    }
+
+    public int countConsonants(){
+        int count = this.data.length() - countVowels();
+        return count;
     }
 }

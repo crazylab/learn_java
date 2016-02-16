@@ -7,7 +7,8 @@ public class Main{
         console.printf("Enter A String: ");
         String input = console.readLine();
         String_Data data = new String_Data(input);
-        data.countVowels();
 
+        data.print(" has "+data.countVowels()+" Vowels");
+        data.print(" has "+data.countConsonants()+" Consonants");
     }
 }
