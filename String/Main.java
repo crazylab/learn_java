@@ -6,9 +6,9 @@ public class Main{
         Console console = System.console();
         console.printf("Enter A String: ");
         String input = console.readLine();
-        String_Data data = new String_Data(input);
 
-        data.print(" has "+data.countVowels()+" Vowels");
-        data.print(" has "+data.countConsonants()+" Consonants");
+        String_Method sMethod = new String_Method();
+        sMethod.print(input + " has " + sMethod.countVowels(input) + " Vowels");
+        sMethod.print(input + " has " + sMethod.countConsonants(input) + " Consonants");
     }
 }
