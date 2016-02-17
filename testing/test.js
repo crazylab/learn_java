@@ -18,7 +18,7 @@ var showErr = function(error){
 }
 
 var showOutput = function (error, stdout, stderr){
-    console.log(stdout);
+    stdout && console.log(stdout);
     if(stderr!= '')
         console.log('-->Error: '+stderr);
     if(error !== null)
@@ -36,14 +36,14 @@ var compile_and_run = function(){
     var compileTest = 'javac -cp .:junit.jar ' + test;
     var runTest = 'java -cp .:junit.jar:hamcrest.jar org.junit.runner.JUnitCore ' + executable;
 
-    var command = compileMain+' && ' + compileTest + ' && ' + runTest;
-
     console.log('Executing the following command:');
     console.log(compileMain);
+    child = exec(compileMain, showOutput);
     console.log(compileTest);
+    exec(compileTest, showOutput);
     console.log(runTest);
-    console.log('-----------------------------------------------------------------------------')
+    exec(runTest, showOutput);
+    console.log('-----------------------------------------------------------------------------');
 
-    child = exec(command, showOutput);
 }
 compile_and_run();
