@@ -1,11 +1,11 @@
 import java.util.Arrays;
 
 public class Matrix {
-    private int rows;
+    int rows;
 
-    private int columns;
+    int columns;
 
-    private int[][] matrix;
+    int[][] matrix;
 
     Matrix(int rows, int columns){
         this.rows = rows;
@@ -13,12 +13,16 @@ public class Matrix {
         this.matrix = new int[rows][columns];
     }
 
-    public Matrix insertAt(int row, int column, int value) {
+    public boolean isEqual(int[][] otherMatrix){
+        return 	Arrays.deepEquals(this.matrix, otherMatrix);
+    }
+
+    private Matrix insertAt(int row, int column, int value) {
         matrix[row][column] = value;
         return this;
     }
 
-    public int valueAt(int row, int column) {
+    private int valueAt(int row, int column) {
         return matrix[row][column];
     }
 
@@ -28,18 +32,32 @@ public class Matrix {
         return this;
     }
 
-    public int[][] getMatrix(){
-        return matrix;
+    public Matrix setValues(int[][] matrix){
+        for(int row = 0; row < rows; row++)
+            for(int column = 0; column < columns; column++)
+                this.matrix[row][column] = matrix[row][column];
+        return this;
     }
 
     public Matrix add(Matrix addendMatrix){
-        Matrix sum = new Matrix(rows, columns);
+        Matrix resultMatrix = new Matrix(rows, columns);
         for (int row = 0; row < rows ; row++){
             for (int column = 0; column < columns ; column++){
                 int addedValue = this.valueAt(row,column) + addendMatrix.valueAt(row,column);
-                sum.insertAt(row, column, addedValue);
+                resultMatrix.insertAt(row, column, addedValue);
             }
         }
-        return sum;
+        return resultMatrix;
     }
+
+    // private boolean canBeMultiplied(Matrix multiplier){
+    //     return this.rows == multiplier.columns;
+    // }
+    // public Matrix multiply(Matrix multiplier){
+    //     if(canBeMultiplied(multiplier))
+    //         return new Matrix(0,0);
+    //     Matrix resultMatrix = new Matrix(this.rows, multiplier.columns);
+    //     return resultMatrix;
+    // }
+
 }
