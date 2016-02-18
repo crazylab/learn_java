@@ -50,14 +50,36 @@ public class Matrix {
         return resultMatrix;
     }
 
-    // private boolean canBeMultiplied(Matrix multiplier){
-    //     return this.rows == multiplier.columns;
-    // }
-    // public Matrix multiply(Matrix multiplier){
-    //     if(canBeMultiplied(multiplier))
-    //         return new Matrix(0,0);
-    //     Matrix resultMatrix = new Matrix(this.rows, multiplier.columns);
-    //     return resultMatrix;
-    // }
+    private boolean canBeMultiplied(Matrix multiplier){
+        return this.rows == multiplier.columns;
+    }
+
+    private int getRowColMultiplicationValue(int[] multiplicand, int[] multiplier){
+        int result = 0;
+        for(int index = 0; index < multiplier.length; index++)
+            result += multiplicand[index] * multiplier[index];
+        return result;
+    }
+
+    private int[] getColumnData(int column){
+        int[] result = new int[this.columns];
+        for(int row = 0; row < this.rows; row++)
+            result[row] = this.valueAt(row, column);
+        return result;
+    }
+
+    public Matrix multiply(Matrix multiplier){
+        if(canBeMultiplied(multiplier))
+            return new Matrix(0,0);
+        Matrix resultMatrix = new Matrix(this.rows, multiplier.columns);
+        for(int row = 0; row < this.rows; row++){
+            for(int column = 0; column < multiplier.columns; column++){
+                int[] columnData = multiplier.getColumnData(column);
+                int cellValue = getRowColMultiplicationValue(this.matrix[row], columnData);
+                resultMatrix.insertAt(row, column, cellValue);
+            }
+        }
+        return resultMatrix;
+    }
 
 }
