@@ -14,8 +14,12 @@ public class Matrix {
     }
 
     public Matrix insertAt(int row, int column, int value) {
-        matrix[row-1][column-1] = value;
+        matrix[row][column] = value;
         return this;
+    }
+
+    public int valueAt(int row, int column) {
+        return matrix[row][column];
     }
 
     public Matrix fill(int value){
@@ -28,4 +32,14 @@ public class Matrix {
         return matrix;
     }
 
+    public Matrix add(Matrix addendMatrix){
+        Matrix sum = new Matrix(rows, columns);
+        for (int row = 0; row < rows ; row++){
+            for (int column = 0; column < columns ; column++){
+                int addedValue = this.valueAt(row,column) + addendMatrix.valueAt(row,column);
+                sum.insertAt(row, column, addedValue);
+            }
+        }
+        return sum;
+    }
 }
