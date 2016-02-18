@@ -41,6 +41,8 @@ public class MatrixTest {
 
         matrix1.fill(5);
         matrix2.fill(2);
+        int[][] matrix1_value = matrix1.getMatrix();
+        int[][] matrix2_value = matrix2.getMatrix();
 
         Matrix sum = matrix1.add(matrix2);
         int[][] expected = new int[][]{
@@ -50,6 +52,7 @@ public class MatrixTest {
         };
 
         assertArrayEquals("--> add - Failed", expected, sum.getMatrix());
-
+        assertArrayEquals("--> add - Failed", matrix1_value, matrix1.getMatrix());
+        assertArrayEquals("--> add - Failed", matrix2_value, matrix2.getMatrix());
     }
 }
