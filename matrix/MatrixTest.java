@@ -85,7 +85,7 @@ public class MatrixTest {
     }
 
     @Test
-    public void multiply_multiplies_2_matrix_and_returns_a_new_matrix() {
+    public void multiply_multiplies_3X2_and_2X2_matrix_and_returns_a_new_matrix_of_3X2() {
         Matrix matrix1 = new Matrix(3,2);
         int[][] matrix1_value = {
             {4,8},
@@ -94,11 +94,11 @@ public class MatrixTest {
         };
         matrix1.setValues(matrix1_value);
 
+        Matrix matrix2 = new Matrix(2,2);
         int[][] matrix2_value = {
             {5,2},
             {9,4}
         };
-        Matrix matrix2 = new Matrix(2,2);
         matrix2.setValues(matrix2_value);
 
         Matrix result = matrix1.multiply(matrix2);
@@ -106,6 +106,34 @@ public class MatrixTest {
             {92,40},
             {18, 8},
             {59, 26}
+        };
+
+        assertTrue("--> multiply - Failed", result.isEqual(expected));
+        assertTrue("--> multiply - Failed", matrix1.isEqual(matrix1_value));
+        assertTrue("--> multiply - Failed", matrix2.isEqual(matrix2_value));
+    }
+
+    @Test
+    public void multiply_multiplies_2X3_and_3X2_matrix_and_returns_a_new_matrix_of_2X2() {
+        Matrix matrix1 = new Matrix(2,3);
+        int[][] matrix1_value = {
+            {1,2,3},
+            {4,5,6}
+        };
+        matrix1.setValues(matrix1_value);
+
+        Matrix matrix2 = new Matrix(3,2);
+        int[][] matrix2_value = {
+            {2,4},
+            {3,6},
+            {7,2}
+        };
+        matrix2.setValues(matrix2_value);
+
+        Matrix result = matrix1.multiply(matrix2);
+        int[][] expected = new int[][]{
+            {29,22},
+            {65, 58}
         };
 
         assertTrue("--> multiply - Failed", result.isEqual(expected));

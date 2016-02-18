@@ -51,7 +51,7 @@ public class Matrix {
     }
 
     private boolean canBeMultiplied(Matrix multiplier){
-        return this.rows == multiplier.columns;
+        return this.columns == multiplier.rows;
     }
 
     private int getRowColMultiplicationValue(int[] multiplicand, int[] multiplier){
@@ -62,15 +62,16 @@ public class Matrix {
     }
 
     private int[] getColumnData(int column){
-        int[] result = new int[this.columns];
+        int[] result = new int[this.rows];
         for(int row = 0; row < this.rows; row++)
             result[row] = this.valueAt(row, column);
         return result;
     }
 
     public Matrix multiply(Matrix multiplier){
-        if(canBeMultiplied(multiplier))
+        if(!canBeMultiplied(multiplier))
             return new Matrix(0,0);
+
         Matrix resultMatrix = new Matrix(this.rows, multiplier.columns);
         for(int row = 0; row < this.rows; row++){
             for(int column = 0; column < multiplier.columns; column++){
@@ -79,6 +80,7 @@ public class Matrix {
                 resultMatrix.insertAt(row, column, cellValue);
             }
         }
+
         return resultMatrix;
     }
 
