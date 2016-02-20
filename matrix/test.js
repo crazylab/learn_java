@@ -2,13 +2,10 @@ var child_process = require('child_process');
 var exec = child_process.exec;
 var child = child_process.child;
 
-// rename junit-4.xx.jar to junit.jar
-//rename hamcrest-core.jar to hamcrest.jar
+//run test command : node test.js YourClass
+//test file name shoud be YourClassTest.java
 
-//run test command : node test.js MyClass
-//test file name shoud be MyClassTest.java
-
-//All file shoud be kept in same directory
+//folder structure should have lib, src, out, test
 
 var showErr = function(error){
     if(error.code == 'ENOENT'){
@@ -32,9 +29,12 @@ var compile_and_run = function(){
     var test = Class + 'Test.java';
     var executable = Class + 'Test';
 
-    var compileMain = 'javac ' + main + '.java';
-    var compileTest = 'javac -cp .:junit.jar ' + test;
-    var runTest = 'java -cp .:junit.jar:hamcrest.jar org.junit.runner.JUnitCore ' + executable;
+    var removeExistingClass = 'rm -f out/*.class'
+    exec(removeExistingClass);
+
+    var compileMain = 'javac -cp "src" -d out src/' + main + '.java';
+    var compileTest = 'javac -cp "src:lib/junit-4.12.jar" -d out test/' + test;
+    var runTest = 'java -cp "out:lib/junit-4.12.jar:lib/hamcrest-core-1.3.jar" org.junit.runner.JUnitCore ' + executable;
     var command = compileMain + ' && ' + compileTest + ' && ' + runTest;
     exec(command, showOutput);
 
